@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=>, initial-scale=1.0" />
+    <title>Weather App</title>
+    <script
+      src="https://kit.fontawesome.com/dc959ca7e8.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <video id="background-video" autoplay loop muted>
+        <source src="media/blue sky clouds.mp4" type="video/mp4" />
+      </video>
+
+      <div class="weatherApp">
+        <form id="searchBar">
+          <button type="submit" id="searchButton">
+            <i class="fa-solid fa-magnifying-glass-location"></i>
+          </button>
+          <input
+            id="search"
+            type="text"
+            autocomplete="off"
+            placeholder="Search City"
+          />
+          <button type="submit" id="homeButton">
+            <i class="fa-solid fa-house"></i>
+          </button>
+        </form>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8">
+              <h1 id="city">Pretoria</h1>
+              <p>
+                <strong id="currentDateTime">
+                  <span id="currentDate">Saturday, 3 June 2023</span> &nbsp;
+                  <span id="currentTime">11:24</span></strong
+                >
+                <br />
+                <span id="weatherDescription">Light Rain Showers</span>
+              </p>
+
+              <h2 id="temperature">
+                ☁️ <span id="maxTemp">24</span> |
+                <span id="minTemp">13</span>
+                <button type="submit" id="degreeButton">°C</button>
+              </h2>
+
+              <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    id="wind-tab"
+                    data-toggle="tab"
+                    href="#wind"
+                    role="tab"
+                    aria-controls="home"
+                    aria-selected="true"
+                    >💨 Wind</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    id="humidity-tab"
+                    data-toggle="tab"
+                    href="#humidity"
+                    role="tab"
+                    aria-controls="profile"
+                    aria-selected="false"
+                    >💧 Humidity</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    id="cloudCover-tab"
+                    data-toggle="tab"
+                    href="#cloudCover"
+                    role="tab"
+                    aria-controls="contact"
+                    aria-selected="false"
+                    >☁️ Cloud Cover</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    id="rainfall-tab"
+                    data-toggle="tab"
+                    href="#rainfall"
+                    role="tab"
+                    aria-controls="contact"
+                    aria-selected="false"
+                    >🌧️ Rainfall</a
+                  >
+                </li>
+              </ul>
+
+              <div class="tab-content" id="myTabContent">
+                <div
+                  class="tab-pane fade show"
+                  id="wind"
+                  role="tabpanel"
+                  aria-labelledby="home-tab"
+                >
+                  <p>Wind content here.</p>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="humidity"
+                  role="tabpanel"
+                  aria-labelledby="profile-tab"
+                >
+                  <p>Humidity content here.</p>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="cloudCover"
+                  role="tabpanel"
+                  aria-labelledby="contact-tab"
+                >
+                  <p>Cloud cover content here.</p>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="rainfall"
+                  role="tabpanel"
+                  aria-labelledby="contact-tab"
+                >
+                  <p>Rainfall content here.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 text-right btn-group-vertical">
+              <button class="btn btn-primary btn-block" type="button">
+                <strong>🌤️ Sunday</strong> <br />
+                25 | 11 °C
+              </button>
+              <button class="btn btn-primary btn-block" type="button">
+                <strong>☀️ Monday</strong> <br />
+                24 | 11 °C
+              </button>
+              <button class="btn btn-primary" type="button">
+                <strong>🌤️ Tuesday</strong> <br />
+                24 | 10 °C
+              </button>
+              <button class="btn btn-primary" type="button">
+                <strong>☀️ Wednesday</strong> <br />
+                25 | 12 °C
+              </button>
+              <button class="btn btn-primary" type="button">
+                <strong>☀️ Thursday</strong> <br />
+                24 | 8 °C
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="src/index.js"></script>
+  </body>
+</html>
