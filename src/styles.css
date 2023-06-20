@@ -121,3 +121,7 @@ strong {
   cursor: pointer;
   transition: all 300ms ease-in-out;
 }
+#gitHubLink {
+  font-size: 14px;
+  margin-top: 10px;
+}
