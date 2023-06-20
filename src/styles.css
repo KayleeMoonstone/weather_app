@@ -2,6 +2,19 @@ body {
   display: block;
   margin: 8px;
 }
+h1 {
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 55px;
+  margin: 23px;
+}
+p {
+  margin-top: 0;
+}
+strong {
+  font-size: 18px;
+}
 #background-video {
   width: 100vw;
   height: 100vh;
@@ -22,9 +35,9 @@ body {
   );
   border-radius: 20px;
   color: #fff;
-  width: 80%;
+  width: 90%;
   padding: 30px;
-  margin: 130px auto;
+  margin: 120px auto;
   font-family: "Oxygen", sans-serif;
 }
 #searchBar {
@@ -71,13 +84,6 @@ body {
   color: #01004e;
   border-radius: 30px;
 }
-h1 {
-  margin-bottom: 5px;
-}
-h2 {
-  font-size: 55px;
-  margin: 23px;
-}
 #degreeButton {
   padding: 5px 10px 5px 10px;
   border: none;
@@ -94,12 +100,6 @@ h2 {
 }
 #weatherDescription {
   font-size: 17px;
-}
-p {
-  margin-top: 0;
-}
-strong {
-  font-size: 18px;
 }
 .container .nav .nav-link {
   color: #fff;
@@ -120,6 +120,9 @@ strong {
   background-color: #01004e;
   cursor: pointer;
   transition: all 300ms ease-in-out;
+}
+.btn:hover {
+  font-size: 20px;
 }
 #gitHubLink {
   font-size: 14px;

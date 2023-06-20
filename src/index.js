@@ -1,4 +1,3 @@
-//Add a search engine
 let apiKey = "515c9ddbeb3cda9061acfab71031839e";
 let apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&";
 let apiLat;
@@ -8,6 +7,7 @@ function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+//Add a search engine
 function searchEngine(event) {
   event.preventDefault();
   let searchInput = document.querySelector("#search");
@@ -39,6 +39,7 @@ function showCurrentLocation(data) {
 
   let cityElement = document.querySelector("#city");
   let descElement = document.querySelector("#weatherDescription");
+  let iconElement = document.querySelector("#weatherIcon");
   let maxElement = document.querySelector("#maxTemp");
   let minElement = document.querySelector("#minTemp");
 
@@ -51,6 +52,10 @@ function showCurrentLocation(data) {
 
   cityElement.innerHTML = `${city}`;
   descElement.innerHTML = `${weatherDesc}`;
+  iconElement.setAttribute(
+    "src",
+    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
   maxElement.innerHTML = `${maxTemp}`;
   minElement.innerHTML = `${minTemp}`;
 
