@@ -35,7 +35,7 @@ strong {
   );
   border-radius: 20px;
   color: #fff;
-  width: 90%;
+  width: 70%;
   padding: 30px;
   margin: 120px auto;
   font-family: "Oxygen", sans-serif;
@@ -55,6 +55,7 @@ strong {
   background: transparent;
   color: #fff;
   transition: all 300ms ease-in-out;
+  text-decoration: underline;
 }
 #search-button:hover {
   background: #fff;
