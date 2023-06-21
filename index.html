@@ -34,12 +34,12 @@
       </video>
 
       <div class="weatherApp">
-        <form id="searchBar">
-          <button type="submit" id="searchButton">
+        <form id="search-bar">
+          <button type="submit" id="search-button">
             <i class="fa-solid fa-magnifying-glass-location"></i>
           </button>
           <input
-            id="search"
+            id="city-input"
             type="text"
             autocomplete="off"
             placeholder="Search City"
@@ -52,19 +52,18 @@
         <div class="container">
           <div class="row">
             <div class="col-8">
-              <h1 id="city">Pretoria</h1>
+              <h1 id="city"></h1>
               <p>
                 <strong id="currentDateTime">
-                  <span id="currentDate">Saturday, 3 June 2023</span> &nbsp;
-                  <span id="currentTime">11:24</span></strong
-                >
+                  <span id="currentDate"></span> &nbsp;
+                  <span id="currentTime"></span
+                ></strong>
                 <br />
-                <span id="weatherDescription">Light Rain Showers</span>
+                <span id="weatherDescription"></span>
               </p>
 
-              <h2 id="temperature">
-                ☁️ <span id="maxTemp">24</span> |
-                <span id="minTemp">13</span>
+              <h2>
+                ☁️ <span id="temperature"></span>
                 <button type="submit" id="degreeButton">°C</button>
               </h2>
 
@@ -96,25 +95,25 @@
                 <li class="nav-item">
                   <a
                     class="nav-link"
-                    id="cloudCover-tab"
+                    id="feels-like-tab"
                     data-toggle="tab"
-                    href="#cloudCover"
+                    href="#feels-like"
                     role="tab"
                     aria-controls="contact"
                     aria-selected="false"
-                    >☁️ Cloud Cover</a
+                    >😌 Feels Like</a
                   >
                 </li>
                 <li class="nav-item">
                   <a
                     class="nav-link"
-                    id="rainfall-tab"
+                    id="air-pressure-tab"
                     data-toggle="tab"
-                    href="#rainfall"
+                    href="#air-pressure"
                     role="tab"
                     aria-controls="contact"
                     aria-selected="false"
-                    >🌧️ Rainfall</a
+                    >😮‍💨 Air Pressure</a
                   >
                 </li>
               </ul>
@@ -126,7 +125,7 @@
                   role="tabpanel"
                   aria-labelledby="home-tab"
                 >
-                  <p>Wind content here.</p>
+                  <p></p>
                 </div>
                 <div
                   class="tab-pane fade"
@@ -134,23 +133,23 @@
                   role="tabpanel"
                   aria-labelledby="profile-tab"
                 >
-                  <p>Humidity content here.</p>
+                  <p></p>
                 </div>
                 <div
                   class="tab-pane fade"
-                  id="cloudCover"
+                  id="feels-like"
                   role="tabpanel"
                   aria-labelledby="contact-tab"
                 >
-                  <p>Cloud cover content here.</p>
+                  <p></p>
                 </div>
                 <div
                   class="tab-pane fade"
-                  id="rainfall"
+                  id="air-pressure"
                   role="tabpanel"
                   aria-labelledby="contact-tab"
                 >
-                  <p>Rainfall content here.</p>
+                  <p></p>
                 </div>
               </div>
             </div>

@@ -1,108 +1,60 @@
-let apiKey = "515c9ddbeb3cda9061acfab71031839e";
-let apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&";
-let apiLat;
-let apiLon;
-
+//Capitalize first letter
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-//Add a search engine
-function searchEngine(event) {
-  event.preventDefault();
-  let searchInput = document.querySelector("#search");
-  let h1 = document.querySelector("h1");
-  h1.innerHTML = capitalizeFirstLetter(searchInput.value);
-  axios
-    .get(`${apiUrl}&q=${searchInput.value}&appid=${apiKey}`)
-    .then(showCurrentTemp);
+//Search city
+function search(city) {
+  let apiKey = "0692fo34ta96a0891b1779bcbc4d983f";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showcurrentTemp);
 }
 
-let form = document.querySelector("#searchBar");
+//Search engine
+function searchEngine(event) {
+  event.preventDefault();
+  let cityInputElement = document.querySelector("#city-input");
+  search(cityInputElement.value);
+  console.log(cityInputElement.value);
+}
+
+search("Pretoria");
+
+let form = document.querySelector("#search-bar");
 form.addEventListener("submit", searchEngine);
 
-//Display home weather
-let homeBtn = document.querySelector("#homeButton");
-
-function showCurrentLocation(data) {
-  let city = data.name;
-  let weatherDesc = data.weather[0].description;
-  let maxTemp = Math.round(data.main.temp_max);
-  let minTemp = Math.round(data.main.temp_min);
-
-  let wind = data.wind;
-  let windSpeed = wind.speed;
-  let windDirection = getWindDirection(wind.deg);
-  let humidity = data.main.humidity;
-  let clouds = data.clouds.all;
-  let rainfall = data.rain ? data.rain["1h"] : 0;
+//Display current weather
+function showcurrentTemp(response) {
+  console.log(response.data);
+  let wind = response.data.wind;
+  let windSpeed = Math.round(wind.speed);
+  let windDirection = getWindDirection(wind.degree);
+  let humidity = response.data.temperature.humidity;
+  let feels = Math.round(response.data.temperature.feels_like);
+  let pressure = response.data.temperature.pressure;
 
   let cityElement = document.querySelector("#city");
-  let descElement = document.querySelector("#weatherDescription");
-  let iconElement = document.querySelector("#weatherIcon");
-  let maxElement = document.querySelector("#maxTemp");
-  let minElement = document.querySelector("#minTemp");
+  let descriptionElement = document.querySelector("#weatherDescription");
+  let temperatureElement = document.querySelector("#temperature");
+
+  cityElement.innerHTML = response.data.city;
+  descriptionElement.innerHTML = capitalizeFirstLetter(
+    response.data.condition.description
+  );
+  temperatureElement.innerHTML = Math.round(response.data.temperature.current);
 
   document.getElementById(
     "wind"
-  ).textContent = `${windSpeed} m/s ${windDirection}`;
+  ).textContent = `${windSpeed} km/h ${windDirection}`;
   document.getElementById("humidity").textContent = `${humidity}%`;
-  document.getElementById("cloudCover").textContent = `${clouds}%`;
-  document.getElementById("rainfall").textContent = `Last hour: ${rainfall} mm`;
-
-  cityElement.innerHTML = `${city}`;
-  descElement.innerHTML = `${weatherDesc}`;
-  iconElement.setAttribute(
-    "src",
-    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-  );
-  maxElement.innerHTML = `${maxTemp}`;
-  minElement.innerHTML = `${minTemp}`;
+  document.getElementById("feels-like").textContent = `${feels}°C`;
+  document.getElementById("air-pressure").textContent = `${pressure}`;
 
   function getWindDirection(degrees) {
     const directionArray = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
     const index = Math.round((degrees % 360) / 45);
     return directionArray[index % 8];
   }
-}
-
-homeBtn.addEventListener("click", () => {
-  navigator.geolocation.getCurrentPosition(function (position) {
-    apiLat = position.coords.latitude;
-    apiLon = position.coords.longitude;
-    axios
-      .get(`${apiUrl}&lat=${apiLat}&lon=${apiLon}&appid=${apiKey}`)
-      .then((response) => showCurrentLocation(response.data));
-  });
-});
-
-//Display current weather
-function showCurrentTemp(response) {
-  let weatherDesc = response.data.weather[0].description;
-  let maxTemp = Math.round(response.data.main.temp_max);
-  let minTemp = Math.round(response.data.main.temp_min);
-
-  let windDirection = getWindDirection(response.data.wind.deg);
-  let windSpeed = response.data.wind.speed;
-  let humidity = response.data.main.humidity;
-  let cloudCover = response.data.clouds.all;
-  let rainfall = response.data.rain ? response.data.rain["1h"] : 0;
-
-  document.getElementById("weatherDescription").textContent = `${weatherDesc}`;
-  document.getElementById("maxTemp").textContent = `${maxTemp}`;
-  document.getElementById("minTemp").textContent = `${minTemp}`;
-  document.getElementById(
-    "wind"
-  ).textContent = `${windSpeed} m/s ${windDirection}`;
-  document.getElementById("humidity").textContent = `${humidity}%`;
-  document.getElementById("cloudCover").textContent = `${cloudCover}%`;
-  document.getElementById("rainfall").textContent = `Last hour: ${rainfall} mm`;
-}
-
-function getWindDirection(degrees) {
-  const directionArray = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
-  const index = Math.round((degrees % 360) / 45);
-  return directionArray[index % 8];
 }
 
 //Display the date & time
@@ -141,6 +93,51 @@ function formatDate(date) {
 document.getElementById("currentDateTime").innerHTML = `${formatDate(
   new Date()
 )}`;
+
+//Display home weather
+let homeBtn = document.querySelector("#homeButton");
+
+function showCurrentLocation(data) {
+  let wind = response.data.wind;
+  let windSpeed = Math.round(wind.speed);
+  let windDirection = getWindDirection(wind.degree);
+  let humidity = response.data.temperature.humidity;
+  let feels = Math.round(response.data.temperature.feels_like);
+  let pressure = response.data.temperature.pressure;
+
+  let cityElement = document.querySelector("#city");
+  let descriptionElement = document.querySelector("#weatherDescription");
+  let temperatureElement = document.querySelector("#temperature");
+
+  cityElement.innerHTML = response.data.city;
+  descriptionElement.innerHTML = capitalizeFirstLetter(
+    response.data.condition.description
+  );
+  temperatureElement.innerHTML = Math.round(response.data.temperature.current);
+
+  document.getElementById(
+    "wind"
+  ).textContent = `${windSpeed} km/h ${windDirection}`;
+  document.getElementById("humidity").textContent = `${humidity}%`;
+  document.getElementById("feels-like").textContent = `${feels}°C`;
+  document.getElementById("air-pressure").textContent = `${pressure}`;
+
+  function getWindDirection(degrees) {
+    const directionArray = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+    const index = Math.round((degrees % 360) / 45);
+    return directionArray[index % 8];
+  }
+}
+
+homeBtn.addEventListener("click", () => {
+  navigator.geolocation.getCurrentPosition(function (position) {
+    apiLat = position.data.coordinates.latitude;
+    apiLon = position.data.coordinates.longitude;
+    axios
+      .get(`${apiUrl}&lat=${apiLat}&lon=${apiLon}`)
+      .then((response) => showCurrentLocation(response.data));
+  });
+});
 
 //Toggle between Celsius & Fahrenheit
 let convertBtn = document.getElementById("degreeButton");
