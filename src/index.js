@@ -15,7 +15,6 @@ function searchEngine(event) {
   event.preventDefault();
   let cityInputElement = document.querySelector("#city-input");
   search(cityInputElement.value);
-  console.log(cityInputElement.value);
 }
 
 search("Pretoria");
@@ -26,9 +25,8 @@ form.addEventListener("submit", searchEngine);
 //Display current weather
 function showcurrentTemp(response) {
   console.log(response.data);
-  let wind = response.data.wind;
-  let windSpeed = Math.round(wind.speed);
-  let windDirection = getWindDirection(wind.degree);
+  let windSpeed = Math.round(response.data.wind.speed);
+  let windDirection = getWindDirection(response.data.wind.degree);
   let humidity = response.data.temperature.humidity;
   let feels = Math.round(response.data.temperature.feels_like);
   let pressure = response.data.temperature.pressure;
@@ -57,8 +55,8 @@ function showcurrentTemp(response) {
   document.getElementById("air-pressure").textContent = `${pressure}`;
 
   function getWindDirection(degrees) {
-    const directionArray = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
-    const index = Math.round((degrees % 360) / 45);
+    let directionArray = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+    let index = Math.round((degrees % 360) / 45);
     return directionArray[index % 8];
   }
 }
@@ -100,75 +98,27 @@ document.getElementById("currentDateTime").innerHTML = `${formatDate(
   new Date()
 )}`;
 
-//Display home weather
-let homeBtn = document.querySelector("#homeButton");
-
-function showCurrentLocation(data) {
-  let wind = response.data.wind;
-  let windSpeed = Math.round(wind.speed);
-  let windDirection = getWindDirection(wind.degree);
-  let humidity = response.data.temperature.humidity;
-  let feels = Math.round(response.data.temperature.feels_like);
-  let pressure = response.data.temperature.pressure;
-
-  let cityElement = document.querySelector("#city");
-  let descriptionElement = document.querySelector("#weatherDescription");
-  let temperatureElement = document.querySelector("#temperature");
-
-  cityElement.innerHTML = response.data.city;
-  descriptionElement.innerHTML = capitalizeFirstLetter(
-    response.data.condition.description
-  );
-  temperatureElement.innerHTML = Math.round(response.data.temperature.current);
-
-  document.getElementById(
-    "wind"
-  ).textContent = `${windSpeed} km/h ${windDirection}`;
-  document.getElementById("humidity").textContent = `${humidity}%`;
-  document.getElementById("feels-like").textContent = `${feels}°C`;
-  document.getElementById("air-pressure").textContent = `${pressure}`;
-
-  function getWindDirection(degrees) {
-    const directionArray = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
-    const index = Math.round((degrees % 360) / 45);
-    return directionArray[index % 8];
-  }
-}
-
-homeBtn.addEventListener("click", () => {
-  navigator.geolocation.getCurrentPosition(function (position) {
-    apiLat = position.data.coordinates.latitude;
-    apiLon = position.data.coordinates.longitude;
-    axios
-      .get(`${apiUrl}&lat=${apiLat}&lon=${apiLon}`)
-      .then((response) => showCurrentLocation(response.data));
-  });
-});
-
 //Toggle between Celsius & Fahrenheit
-let convertBtn = document.getElementById("degreeButton");
-let isCelsius = true;
+let isCelsius = true; // variable to keep track of the current unit
+const temperatureSpan = document.getElementById("temperature");
+const toggleButton = document.getElementById("degree-button");
 
-convertBtn.addEventListener("click", () => {
-  let currMax = parseFloat(maxTemperature.textContent);
-  let currMin = parseFloat(minTemperature.textContent);
-
-  let convertTemperature = (temp) => {
-    return isCelsius
-      ? Math.round(temp * 1.8 + 32)
-      : Math.round((temp - 32) / 1.8);
-  };
-
-  let fahrenheit = convertTemperature(currMax);
-  let celsius = convertTemperature(currMax);
-
-  maxTemperature.textContent = isCelsius ? fahrenheit : celsius;
-  minTemperature.textContent = isCelsius
-    ? convertTemperature(currMin)
-    : convertTemperature(currMin);
-
-  convertBtn.textContent = isCelsius ? "°F" : "°C";
-  isCelsius = !isCelsius;
+toggleButton.addEventListener("click", function () {
+  if (isCelsius) {
+    // Convert Celsius to Fahrenheit
+    const fahrenheitTemp =
+      (parseFloat(temperatureSpan.textContent) * 9) / 5 + 32;
+    temperatureSpan.textContent = `${Math.round(fahrenheitTemp)}`;
+    toggleButton.textContent = "°F";
+    isCelsius = false;
+  } else {
+    // Convert Fahrenheit to Celsius
+    const celsiusTemp =
+      ((parseFloat(temperatureSpan.textContent) - 32) * 5) / 9;
+    temperatureSpan.textContent = `${Math.round(celsiusTemp)}`;
+    toggleButton.textContent = "°C";
+    isCelsius = true;
+  }
 });
 
 // Extra details tabs toggling

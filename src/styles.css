@@ -73,24 +73,13 @@ strong {
   color: #ffdfff;
   opacity: 30%;
 }
-#homeButton {
-  border: none;
-  background: transparent;
-  color: #fff;
-  transition: all 300ms ease-in-out;
-}
-#homeButton:hover {
-  background: #fff;
-  color: #01004e;
-  border-radius: 30px;
-}
 #weather-icon {
   display: inline-block;
   width: 70px;
   height: auto;
   vertical-align: bottom;
 }
-#degreeButton {
+#degree-button {
   padding: 5px 10px 5px 10px;
   border: none;
   border-radius: 30px;
@@ -99,10 +88,10 @@ strong {
   font-size: 30px;
   transition: all 300ms ease-in-out;
 }
-#degreeButton:hover {
+#degree-button:hover {
   background: #fff;
   color: #01004e;
-  font-size: 35px;
+  font-size: 34px;
 }
 #weatherDescription {
   font-size: 17px;
