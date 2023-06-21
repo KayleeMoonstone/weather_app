@@ -36,12 +36,18 @@ function showcurrentTemp(response) {
   let cityElement = document.querySelector("#city");
   let descriptionElement = document.querySelector("#weatherDescription");
   let temperatureElement = document.querySelector("#temperature");
+  let iconElement = document.querySelector("#weather-icon");
 
   cityElement.innerHTML = response.data.city;
   descriptionElement.innerHTML = capitalizeFirstLetter(
     response.data.condition.description
   );
   temperatureElement.innerHTML = Math.round(response.data.temperature.current);
+  iconElement.setAttribute(
+    "src",
+    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
+  );
+  iconElement.setAttribute("alt", response.data.condition.description);
 
   document.getElementById(
     "wind"

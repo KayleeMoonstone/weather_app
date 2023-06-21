@@ -84,6 +84,12 @@ strong {
   color: #01004e;
   border-radius: 30px;
 }
+#weather-icon {
+  display: inline-block;
+  width: 70px;
+  height: auto;
+  vertical-align: bottom;
+}
 #degreeButton {
   padding: 5px 10px 5px 10px;
   border: none;
