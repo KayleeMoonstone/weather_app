@@ -18,6 +18,7 @@ function searchEngine(event) {
 }
 
 search("Pretoria");
+displayWeeklyForecast();
 
 let form = document.querySelector("#search-bar");
 form.addEventListener("submit", searchEngine);
@@ -139,3 +140,26 @@ myTabs.addEventListener("click", function (e) {
     activeTab.classList.add("show", "active");
   }
 });
+
+//Weekly forecast
+function displayWeeklyForecast() {
+  let weeklyForecastElement = document.querySelector("#weekly-forecast");
+  let weeklyForecastHTML = "";
+  let days = ["Friday", "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday"];
+  days.forEach(function (day) {
+    weeklyForecastHTML =
+      weeklyForecastHTML +
+      `
+  <button class="btn btn-primary btn-block" type="button">
+                <img
+                  src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/few-clouds-day.png"
+                  alt=""
+                  class="forecast-icon"
+                />
+                <strong class="forecast-day">Sunday</strong> <br />
+                <span class="max-temp">25</span> |
+                <span class="min-temp">11</span> °C
+              </button>`;
+    weeklyForecastElement.innerHTML = weeklyForecastHTML;
+  });
+}
