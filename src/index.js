@@ -18,14 +18,41 @@ function searchEngine(event) {
 }
 
 search("Pretoria");
-displayWeeklyForecast();
 
 let form = document.querySelector("#search-bar");
 form.addEventListener("submit", searchEngine);
 
+//Weekly forecast
+function displayWeeklyForecast(response) {
+  console.log(response.data.daily);
+  let weeklyForecastElement = document.querySelector("#weekly-forecast");
+  let weeklyForecastHTML = "";
+  let days = ["Friday", "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday"];
+  days.forEach(function (day) {
+    weeklyForecastHTML =
+      weeklyForecastHTML +
+      `
+  <button class="btn btn-primary btn-block" type="button">
+                <img
+                  src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/few-clouds-day.png"
+                  alt=""
+                  class="forecast-icon"
+                />
+                <strong class="forecast-day">${day}</strong> <br />
+                <span class="max-temp">25</span> |
+                <span class="min-temp">11</span> °C
+              </button>`;
+  });
+  weeklyForecastElement.innerHTML = weeklyForecastHTML;
+}
+function getForecast(coordinates) {
+  let apiKey = "0692fo34ta96a0891b1779bcbc4d983f";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayWeeklyForecast);
+}
+
 //Display current weather
 function showcurrentTemp(response) {
-  console.log(response.data);
   let windSpeed = Math.round(response.data.wind.speed);
   let windDirection = getWindDirection(response.data.wind.degree);
   let humidity = response.data.temperature.humidity;
@@ -60,6 +87,8 @@ function showcurrentTemp(response) {
     let index = Math.round((degrees % 360) / 45);
     return directionArray[index % 8];
   }
+
+  getForecast(response.data.coordinates);
 }
 
 //Display the date & time
@@ -140,26 +169,3 @@ myTabs.addEventListener("click", function (e) {
     activeTab.classList.add("show", "active");
   }
 });
-
-//Weekly forecast
-function displayWeeklyForecast() {
-  let weeklyForecastElement = document.querySelector("#weekly-forecast");
-  let weeklyForecastHTML = "";
-  let days = ["Friday", "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday"];
-  days.forEach(function (day) {
-    weeklyForecastHTML =
-      weeklyForecastHTML +
-      `
-  <button class="btn btn-primary btn-block" type="button">
-                <img
-                  src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/few-clouds-day.png"
-                  alt=""
-                  class="forecast-icon"
-                />
-                <strong class="forecast-day">Sunday</strong> <br />
-                <span class="max-temp">25</span> |
-                <span class="min-temp">11</span> °C
-              </button>`;
-    weeklyForecastElement.innerHTML = weeklyForecastHTML;
-  });
-}
