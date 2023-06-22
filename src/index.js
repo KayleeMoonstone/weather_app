@@ -23,25 +23,51 @@ let form = document.querySelector("#search-bar");
 form.addEventListener("submit", searchEngine);
 
 //Weekly forecast
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  return days[day];
+}
+
 function displayWeeklyForecast(response) {
-  console.log(response.data.daily);
+  console.log();
   let weeklyForecastElement = document.querySelector("#weekly-forecast");
   let weeklyForecastHTML = "";
-  let days = ["Friday", "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday"];
-  days.forEach(function (day) {
-    weeklyForecastHTML =
-      weeklyForecastHTML +
-      `
+  let weeklyForcast = response.data.daily;
+  weeklyForcast.forEach(function (forecastday, index) {
+    if (index < 5) {
+      weeklyForecastHTML =
+        weeklyForecastHTML +
+        `
   <button class="btn btn-primary btn-block" type="button">
                 <img
-                  src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/few-clouds-day.png"
+                  src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/${
+                    forecastday.condition.icon
+                  }.png"
                   alt=""
                   class="forecast-icon"
                 />
-                <strong class="forecast-day">${day}</strong> <br />
-                <span class="max-temp">25</span> |
-                <span class="min-temp">11</span> °C
+                <strong class="forecast-day">${formatDay(
+                  forecastday.time
+                )}</strong> <br />
+                <span class="max-temp">${Math.round(
+                  forecastday.temperature.maximum
+                )}</span> |
+                <span class="min-temp">${Math.round(
+                  forecastday.temperature.minimum
+                )}</span> °C
               </button>`;
+    }
   });
   weeklyForecastElement.innerHTML = weeklyForecastHTML;
 }
