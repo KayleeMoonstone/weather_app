@@ -59,13 +59,15 @@ function displayWeeklyForecast(response) {
                 />
                 <strong class="forecast-day">${formatDay(
                   forecastday.time
-                )}</strong> <br />
+                )}</strong> 
+                <div class="temp">
                 <span class="max-temp">${Math.round(
                   forecastday.temperature.maximum
                 )}</span> |
                 <span class="min-temp">${Math.round(
                   forecastday.temperature.minimum
                 )}</span> °C
+                </div>
               </button>`;
     }
   });
@@ -103,7 +105,7 @@ function showcurrentTemp(response) {
 
   document.getElementById(
     "wind"
-  ).textContent = `${windSpeed} km/h ${windDirection}`;
+  ).textContent = `${windSpeed} m/s ${windDirection}`;
   document.getElementById("humidity").textContent = `${humidity}%`;
   document.getElementById("feels-like").textContent = `${feels}°C`;
   document.getElementById("air-pressure").textContent = `${pressure}`;
